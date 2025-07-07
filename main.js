@@ -16,12 +16,20 @@
     new WOW().init();
 
 
-    // Sticky Navbar
+    // Fixed Navbar
     $(window).scroll(function () {
-        if ($(this).scrollTop() > 300) {
-            $('.sticky-top').addClass('shadow-sm').css('top', '0px');
+        if ($(window).width() < 992) {
+            if ($(this).scrollTop() > 45) {
+                $('.fixed-top').addClass('bg-dark shadow');
+            } else {
+                $('.fixed-top').removeClass('bg-dark shadow');
+            }
         } else {
-            $('.sticky-top').removeClass('shadow-sm').css('top', '-100px');
+            if ($(this).scrollTop() > 45) {
+                $('.fixed-top').addClass('bg-dark shadow').css('top', -45);
+            } else {
+                $('.fixed-top').removeClass('bg-dark shadow').css('top', 0);
+            }
         }
     });
     
@@ -40,25 +48,34 @@
     });
 
 
-    // Facts counter
-    $('[data-toggle="counter-up"]').counterUp({
-        delay: 10,
-        time: 2000
-    });
+    // Causes progress
+    $('.causes-progress').waypoint(function () {
+        $('.progress .progress-bar').each(function () {
+            $(this).css("width", $(this).attr("aria-valuenow") + '%');
+        });
+    }, {offset: '80%'});
 
 
     // Testimonials carousel
     $(".testimonial-carousel").owlCarousel({
-        autoplay: true,
+        autoplay: false,
         smartSpeed: 1000,
-        items: 1,
+        center: true,
         dots: false,
         loop: true,
-        nav: true,
+        nav : true,
         navText : [
-            '<i class="bi bi-chevron-left"></i>',
-            '<i class="bi bi-chevron-right"></i>'
-        ]
+            '<i class="bi bi-arrow-left"></i>',
+            '<i class="bi bi-arrow-right"></i>'
+        ],
+        responsive: {
+            0:{
+                items:1
+            },
+            768:{
+                items:2
+            }
+        }
     });
 
     
